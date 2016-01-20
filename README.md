@@ -7,7 +7,7 @@ System.Net.Http.HttpClientFactory library in .NET.
 ##Basic Usage
 
 ```javascript
-var HttpClientFactory = require("httpclientfactory")
+var HttpClientFactory = require("http-client-factory")
 
 //Issues a GET request to http://www.tempuri.org/my/endpoint?some=value&search=text
 var promise = HttpClientFactory.getClient()

@@ -1,5 +1,5 @@
 {
-  "name": "httpClientFactory",
+  "name": "http-client-factory",
   "version": "0.1.0",
   "description": "Library is aimed at improving the development experience for REST-like calls in NodeJS",
   "main": "lib/httpClientFactory.js",
