@@ -1,0 +1,28 @@
+{
+  "name": "httpClientFactory",
+  "version": "0.1.0",
+  "description": "Library is aimed at improving the development experience for REST-like calls in NodeJS",
+  "main": "lib/httpClientFactory.js",
+  "dependencies": {
+    "bluebird": "^3.1.1"
+  },
+  "devDependencies": {
+    "jasmine": "^2.4.1",
+    "underscore": "^1.8.3",
+    "proxyquire": "^1.7.3"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdickin/httpClientFactory.git"
+  },
+  "keywords": ["http", "client", "rest", "json"],
+  "author": "Matt Dickinson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdickin/httpClientFactory/issues"
+  },
+  "homepage": "https://github.com/mdickin/httpClientFactory#readme"
+}
