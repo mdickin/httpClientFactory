@@ -23,8 +23,10 @@ promise.then(function (response) {
 
 ## API
 `HttpClientFactory`
-- `.getClient()`
+- `.getClient(AgentOptions)`
  - Returns `HttpClient`
+ - `AgentOptions` is from `http` library
+ - If `AgentOptions` is null, default settings are used (recommended)
 
 HttpClient
 - `.addHandler(HttpClientHandler)`
