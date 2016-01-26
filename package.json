@@ -1,7 +1,7 @@
 {
   "name": "http-client-factory",
-  "version": "0.1.0",
-  "description": "Library is aimed at improving the development experience for REST-like calls in NodeJS",
+  "version": "0.2.0",
+  "description": "Fluent and extensible HTTP[S] client for RESTful calls",
   "main": "lib/httpClientFactory.js",
   "dependencies": {
     "bluebird": "^3.1.1"

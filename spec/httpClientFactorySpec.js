@@ -60,6 +60,46 @@ describe("Basic HTTP calls", function () {
         });
     });
     
+    it("sends get method for head", function() {
+        //Arrange
+        setHttpResult({
+            statusCode: 200
+        });
+        
+        //Act
+        var result = _httpClientFactory.getClient().head("http://www.tempuri.org/some/path", { query: "param1", q2: "p2" }).value();
+        
+        //Assert
+        expect(result.statusCode).toBe(200);
+        expectRequestCalled({
+            protocol: "http:",
+            host: "www.tempuri.org",
+            pathname: "/some/path",
+            query: "query=param1&q2=p2",
+            method: "head"
+        });
+    });
+    
+    it("sends get method for options", function() {
+        //Arrange
+        setHttpResult({
+            statusCode: 200
+        });
+        
+        //Act
+        var result = _httpClientFactory.getClient().options("http://www.tempuri.org/some/path", { query: "param1", q2: "p2" }).value();
+        
+        //Assert
+        expect(result.statusCode).toBe(200);
+        expectRequestCalled({
+            protocol: "http:",
+            host: "www.tempuri.org",
+            pathname: "/some/path",
+            query: "query=param1&q2=p2",
+            method: "options"
+        });
+    });
+    
     it("sends put method and body for put", function () {
        //Arrange
         var response = {
@@ -87,11 +127,15 @@ describe("Basic HTTP calls", function () {
             protocol: "http:",
             host: "www.tempuri.org",
             pathname: "/some/path",
-            method: "put"
+            method: "put",
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': 44
+            }
        }, request);
     });
     
-    it("sends put method and body for post", function () {
+    it("sends post method and body for post", function () {
        //Arrange
         var response = {
             some: "content"
@@ -118,7 +162,46 @@ describe("Basic HTTP calls", function () {
             protocol: "http:",
             host: "www.tempuri.org",
             pathname: "/some/path",
-            method: "post"
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': 44
+            }
+       }, request);
+    });
+    
+    it("sends patch method and body for patch", function () {
+       //Arrange
+        var response = {
+            some: "content"
+        };
+        setHttpResult({
+            statusCode: 200,
+        }, response);
+        var request = {
+                req: "something",
+                obj: {
+                    deep: "request"
+                }
+            };
+        
+       //Act
+       var result = _httpClientFactory.getClient().patch(
+           "http://www.tempuri.org/some/path",
+            request).value();
+       
+       //Assert 
+       expect(result.statusCode).toBe(200);
+       expect(_.isEqual(JSON.parse(result.body), response)).toBe(true);
+       expectRequestCalled({
+            protocol: "http:",
+            host: "www.tempuri.org",
+            pathname: "/some/path",
+            method: "patch",
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': 44
+            }
        }, request);
     });
     
@@ -189,6 +272,44 @@ describe("HTTP agent", function () {
             })
         }, null, true)
     })  
+})
+
+describe("Authorization", function () {
+    it("allows for setting any authorization", function () {
+        //Arrange
+        setHttpResult({ statusCode: 200})
+        
+        //Act
+        _httpClientFactory.getClient()
+            .setAuthorization("authScheme", "authValue")
+            .get("testuri")
+        
+        //Assert
+        expectRequestCalled({
+            headers: {
+                authorization: "authScheme authValue",
+                "Content-Type": "application/json"
+            }
+        })
+    })
+    
+    it("allows for setting basicAuth", function () {
+        //Arrange
+        setHttpResult({ statusCode: 200})
+        
+        //Act
+        _httpClientFactory.getClient()
+            .setBasicAuth("Aladdin", "open sesame")
+            .get("testuri")
+        
+        //Assert
+        expectRequestCalled({
+            headers: {
+                authorization: "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+                "Content-Type": "application/json"
+            }
+        })
+    })
 })
 
 describe("handlers", function () {

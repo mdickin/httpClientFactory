@@ -29,7 +29,17 @@ promise.then(function (response) {
  - If `AgentOptions` is null, default settings are used (recommended)
 
 HttpClient
+- `.setAuthorization(scheme, parameter)`
+ - Sets the Authorization header to `scheme parameter`
+ - Returns `HttpClient`
+- `.setBasicAuth(username, password)`
+ - Sets the Authorization header to use basic authentication with the given credentials
+ - Returns `HttpClient`
 - `.addHandler(HttpClientHandler)`
+ - Adds an HttpClientHandler to run on requests and responses
+ - Request handlers are run in the order they're added. The first handler added will 
+run first
+ - Response handlers are run in the reverse order. The _last_ handler added will run first
  - Returns `HttpClient`
 - `.get(url, RequestBody)`
  - Returns `Promise`
@@ -40,8 +50,8 @@ HttpClient
 - `.delete(url, RequestBody)`
  - Returns `Promise`
 - `.send(HttpRequest, RequestBody)`
+ - Sends a [raw request](https://nodejs.org/api/http.html#http_http_request_options_callback)
  - Returns `Promise`
- - Sends a raw request
 
 HttpClientHandler
 - `onRequest: function (HttpRequest, body)`
@@ -80,6 +90,9 @@ HttpClientFactory.getClient()
     .addHandler(handler)
     .post("http://www.tempuri.org/my/endpoint", { postdata: "goes here" })
 ```
+
+As of v0.2.0, this can be accomplished by calling 
+`client.setAuthorization("sampleAuthScheme", "authValue")`
 
 ### Logging request/response data
 ```javascript
