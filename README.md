@@ -29,6 +29,8 @@ promise.then(function (response) {
  - If `AgentOptions` is null, default settings are used (recommended)
 
 HttpClient
+- `.addHeader(headerKey, headerValue)`
+ - Adds a header to the request with the given key and value
 - `.setAuthorization(scheme, parameter)`
  - Sets the Authorization header to `scheme parameter`
  - Returns `HttpClient`
@@ -63,8 +65,8 @@ HttpClientHandler
  
 RequestBody
 - Normal JSON object
-- For `.get()` and `.delete()` requests, this will be converted into query string parameters
-- For `.put()` and `.post()` requests, this will be sent as JSON content
+- For `.get()`, `.delete()`, `.head()`, and `.options()` requests, this will be converted into query string parameters
+- For `.put()`, `.post()`, and `.patch()` requests, this will be sent as JSON content
 
 
 ##Reading the Response

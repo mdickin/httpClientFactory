@@ -274,6 +274,52 @@ describe("HTTP agent", function () {
     })  
 })
 
+describe("Headers", function () {
+    
+    it("throws an exception if the header key is null", function () {
+        //Arrange
+        
+        //Act
+        var result = _httpClientFactory.getClient()
+            .addHeader(null, "headerValue")
+            .get("testuri").reason();
+        
+        //Assert
+        expect(result.message).toBe("Header key is required")
+    });
+    
+    it("throws an exception if the header key is empty", function () {
+        //Arrange
+        
+        //Act
+        var result = _httpClientFactory.getClient()
+            .addHeader("", "headerValue")
+            .get("testuri").reason();
+        
+        //Assert
+        expect(result.message).toBe("Header key is required")
+    });
+    
+    it("adds the provided header to the request", function () {
+        //Arrange
+        setHttpResult({ statusCode: 200})
+        
+        //Act
+        _httpClientFactory.getClient()
+            .addHeader("headerKey", "headerValue")
+            .get("testuri");
+        
+        //Assert
+        expectRequestCalled({
+            headers: {
+                headerKey: "headerValue",
+                "Content-Type": "application/json"
+            }
+        })
+        
+    });
+})
+
 describe("Authorization", function () {
     it("allows for setting any authorization", function () {
         //Arrange
