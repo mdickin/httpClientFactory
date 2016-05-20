@@ -1,6 +1,6 @@
 {
   "name": "http-client-factory",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fluent and extensible HTTP[S] client for RESTful calls",
   "main": "lib/httpClientFactory.js",
   "dependencies": {
